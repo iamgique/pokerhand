@@ -23,7 +23,9 @@ public class Versus {
         playerBlack.put(Player.BLACK.getContent(), getKindOfCard(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4)));
         playerWhite.put(Player.WHITE.getContent(), getKindOfCard(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4)));
 
-        CardRank resp = compareKindCardOnHand(playerBlack.get("Black"), playerWhite.get("White"));
+        CardRank resp = compareKindCardOnHand(
+                playerBlack.get(Player.BLACK.getContent()),
+                playerWhite.get(Player.WHITE.getContent()));
 
         sameKindOfCard(resp);
         notSameKindOfCard(resp);
