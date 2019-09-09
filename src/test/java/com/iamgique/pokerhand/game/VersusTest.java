@@ -144,6 +144,60 @@ public class VersusTest {
     }
 
     @Test
+    public void versus_blackWin_blackAndWhiteHasStraight_playerBlackHasAceCardIsHighest() {
+        List<Card> black = asList(
+                new Card(Value.T, Suit.H),
+                new Card(Value.J, Suit.S),
+                new Card(Value.Q, Suit.D),
+                new Card(Value.K, Suit.C),
+                new Card(Value.A, Suit.H));
+        List<Card> white = asList(
+                new Card(Value._9, Suit.H),
+                new Card(Value.T, Suit.C),
+                new Card(Value.J, Suit.S),
+                new Card(Value.Q, Suit.D),
+                new Card(Value.K, Suit.H));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("Black wins. - with straight: Ace", versus.versus());
+    }
+
+    @Test
+    public void versus_blackWin_blackAndWhiteHasFlush_playerBlackHasQueenCardIsHighest() {
+        List<Card> black = asList(
+                new Card(Value.T, Suit.H),
+                new Card(Value._6, Suit.H),
+                new Card(Value._7, Suit.H),
+                new Card(Value._2, Suit.H),
+                new Card(Value.Q, Suit.H));
+        List<Card> white = asList(
+                new Card(Value._9, Suit.C),
+                new Card(Value.T, Suit.C),
+                new Card(Value.J, Suit.C),
+                new Card(Value._2, Suit.C),
+                new Card(Value._6, Suit.C));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("Black wins. - with flush: Queen", versus.versus());
+    }
+
+    @Test
+    public void versus_WhiteWin_blackAndWhiteHasFullHouse_playerWhiteHasJackCardIsHighest() {
+        List<Card> black = asList(
+                new Card(Value._2, Suit.D),
+                new Card(Value.T, Suit.H),
+                new Card(Value.T, Suit.C),
+                new Card(Value._2, Suit.H),
+                new Card(Value.T, Suit.S));
+        List<Card> white = asList(
+                new Card(Value._9, Suit.S),
+                new Card(Value._9, Suit.C),
+                new Card(Value.J, Suit.C),
+                new Card(Value.J, Suit.H),
+                new Card(Value.J, Suit.S));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("Black wins. - with flush: Queen", versus.versus());
+    }
+
+    @Test
     public void highCard_getKindOfCard(){
         Versus versus = new Versus(this.black, this.white, this.kind);
         Assert.assertEquals(CardRank.HIGHCARD.ordinal(), versus.getKindOfCard(new Card(Value._2, Suit.H),

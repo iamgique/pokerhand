@@ -72,7 +72,10 @@ public class Versus {
             }
 
             if(playerBlack.get(Player.BLACK.getContent()) > CardRank.DRAW.ordinal() &&
-                    playerBlack.get(Player.BLACK.getContent()) < CardRank.THREEOFAKIND.ordinal()){
+                    playerBlack.get(Player.BLACK.getContent()) < CardRank.THREEOFAKIND.ordinal()
+                    || playerBlack.get(Player.BLACK.getContent()) == CardRank.STRAIGHT.ordinal()
+                    || playerBlack.get(Player.BLACK.getContent()) == CardRank.FLUSH.ordinal()
+            ){
                 compareHighestCard(0);
             }
         }
