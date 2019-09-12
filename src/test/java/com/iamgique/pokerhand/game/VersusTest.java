@@ -1,10 +1,7 @@
 package com.iamgique.pokerhand.game;
 
 import com.iamgique.pokerhand.kind.Kind;
-import com.iamgique.pokerhand.model.Card;
-import com.iamgique.pokerhand.model.CardRank;
-import com.iamgique.pokerhand.model.Suit;
-import com.iamgique.pokerhand.model.Value;
+import com.iamgique.pokerhand.model.*;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -51,6 +48,24 @@ public class VersusTest {
                 new Card(Value._3, Suit.H));
         Versus versus = new Versus(black, white, this.kind);
         Assert.assertEquals("Black wins. - with high card: 9", versus.versus());
+    }
+
+    @Test
+    public void versus_TieWhenEveryoneHasHighestCard() {
+        List<Card> black = asList(
+                new Card(Value._2, Suit.C),
+                new Card(Value._5, Suit.D),
+                new Card(Value._7, Suit.S),
+                new Card(Value._9, Suit.C),
+                new Card(Value._3, Suit.C));
+        List<Card> white = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._5, Suit.S),
+                new Card(Value._7, Suit.D),
+                new Card(Value._9, Suit.S),
+                new Card(Value._3, Suit.H));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("Tie.", versus.versus());
     }
 
     @Test
@@ -194,7 +209,43 @@ public class VersusTest {
                 new Card(Value.J, Suit.H),
                 new Card(Value.J, Suit.S));
         Versus versus = new Versus(black, white, this.kind);
-        Assert.assertEquals("Black wins. - with flush: Queen", versus.versus());
+        Assert.assertEquals("White wins. - with full house: Jack", versus.versus());
+    }
+
+    @Test
+    public void versus_WhiteWin_blackAndWhiteHasStraightFlush_playerWhiteHasQueenCardIsHighest() {
+        List<Card> black = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._3, Suit.H),
+                new Card(Value._4, Suit.H),
+                new Card(Value._5, Suit.H),
+                new Card(Value._6, Suit.H));
+        List<Card> white = asList(
+                new Card(Value._8, Suit.S),
+                new Card(Value._9, Suit.S),
+                new Card(Value.T, Suit.S),
+                new Card(Value.J, Suit.S),
+                new Card(Value.Q, Suit.S));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("White wins. - with straight flush: Queen", versus.versus());
+    }
+
+    @Test
+    public void versus_Tie_blackAndWhiteHasStraightFlush_everyoneHasHighestCard() {
+        List<Card> black = asList(
+                new Card(Value._8, Suit.H),
+                new Card(Value._9, Suit.H),
+                new Card(Value.T, Suit.H),
+                new Card(Value.J, Suit.H),
+                new Card(Value.Q, Suit.H));
+        List<Card> white = asList(
+                new Card(Value._8, Suit.S),
+                new Card(Value._9, Suit.S),
+                new Card(Value.T, Suit.S),
+                new Card(Value.J, Suit.S),
+                new Card(Value.Q, Suit.S));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("Tie.", versus.versus());
     }
 
     @Test

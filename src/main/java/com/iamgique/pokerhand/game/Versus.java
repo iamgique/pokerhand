@@ -2,6 +2,7 @@ package com.iamgique.pokerhand.game;
 
 import com.iamgique.pokerhand.kind.*;
 import com.iamgique.pokerhand.model.*;
+import com.iamgique.pokerhand.rank.Rank;
 
 import java.util.*;
 
@@ -20,16 +21,20 @@ public class Versus {
     }
 
     public String versus() {
-        playerBlack.put(Player.BLACK.getContent(), getKindOfCard(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4)));
-        playerWhite.put(Player.WHITE.getContent(), getKindOfCard(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4)));
+        playerBlack.put(Player.BLACK.getContent(),
+                getKindOfCard(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4)));
+        playerWhite.put(Player.WHITE.getContent(),
+                getKindOfCard(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4)));
 
-        CardRank resp = compareKindCardOnHand(
+        CardRank kindOfCard = compareKindCardOnHand(
                 playerBlack.get(Player.BLACK.getContent()),
                 playerWhite.get(Player.WHITE.getContent()));
 
-        sameKindOfCard(resp);
-        notSameKindOfCard(resp);
-
+        if(CardRank.DRAW.ordinal() == kindOfCard.ordinal()) {
+            sameKindOfCard();
+        } else {
+            notSameKindOfCard(kindOfCard);
+        }
         return summary.toString();
     }
 
@@ -67,19 +72,19 @@ public class Versus {
         }
     }
 
-    private void sameKindOfCard(CardRank resp){
-        if(CardRank.DRAW.ordinal() == resp.ordinal()){
-            if(playerBlack.get(Player.BLACK.getContent()) == CardRank.THREEOFAKIND.ordinal()){
-                compareThreeOfKind();
-            }
+    private void sameKindOfCard(){
+        if(playerBlack.get(Player.BLACK.getContent()) == CardRank.THREEOFAKIND.ordinal()
+            || playerBlack.get(Player.BLACK.getContent()) == CardRank.FULLHOUSE.ordinal()){
+            compareThreeOfKind();
+        }
 
-            if(playerBlack.get(Player.BLACK.getContent()) > CardRank.DRAW.ordinal() &&
-                    playerBlack.get(Player.BLACK.getContent()) < CardRank.THREEOFAKIND.ordinal()
-                    || playerBlack.get(Player.BLACK.getContent()) == CardRank.STRAIGHT.ordinal()
-                    || playerBlack.get(Player.BLACK.getContent()) == CardRank.FLUSH.ordinal()
-            ){
-                compareHighestCard(0);
-            }
+        if(playerBlack.get(Player.BLACK.getContent()) > CardRank.DRAW.ordinal() &&
+                playerBlack.get(Player.BLACK.getContent()) < CardRank.THREEOFAKIND.ordinal()
+                || playerBlack.get(Player.BLACK.getContent()) == CardRank.STRAIGHT.ordinal()
+                || playerBlack.get(Player.BLACK.getContent()) == CardRank.FLUSH.ordinal()
+                || playerBlack.get(Player.BLACK.getContent()) == CardRank.STRAIGHTFLUSH.ordinal()
+        ){
+            compareHighestCard(0);
         }
     }
 
@@ -87,10 +92,16 @@ public class Versus {
         System.err.println("NOT DRAW");
     }
 
+    private void compareThreeOfKind() {
+        Value a = Rank.getHighestCardOnThreeCardSame(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4));
+        Value b = Rank.getHighestCardOnThreeCardSame(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4));
+        getWinner(new Card(a, Suit.H),new Card(b, Suit.H));
+    }
+
     private void compareHighestCard(int index) {
-        Card a = new HighCard(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4)).getHighestCard(index);
-        Card b = new HighCard(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4)).getHighestCard(index);
-        if(a.getValue().ordinal() == b.getValue().ordinal()){
+        Card a = Rank.getHighestCard(index, black.get(0), black.get(1), black.get(2), black.get(3), black.get(4));
+        Card b = Rank.getHighestCard(index, white.get(0), white.get(1), white.get(2), white.get(3), white.get(4));
+        if(a.getValue().ordinal() == b.getValue().ordinal() && black.size() - 1 > index){
             compareHighestCard(++index);
         } else {
             getWinner(a, b);
@@ -98,18 +109,12 @@ public class Versus {
         }
     }
 
-    private void compareThreeOfKind() {
-        Value a = new ThreeOfKind(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4)).getCardThreeOfKind();
-        Value b = new ThreeOfKind(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4)).getCardThreeOfKind();
-        getWinner(new Card(a, Suit.H),new Card(b, Suit.H));
-    }
-
     private void getWinner(Card a, Card b) {
-        if(a.getValue().ordinal() > b.getValue().ordinal()){
+        if(a.getValue().ordinal() > b.getValue().ordinal()) {
             summary.setPlayer(Player.BLACK.getContent());
             summary.setRank(CardRank.values[playerBlack.get(Player.BLACK.getContent())].getContent());
             summary.setCard(a.getValue().getContent());
-        } else {
+        } else if(a.getValue().ordinal() < b.getValue().ordinal()) {
             summary.setPlayer(Player.WHITE.getContent());
             summary.setRank(CardRank.values[playerWhite.get(Player.WHITE.getContent())].getContent());
             summary.setCard(b.getValue().getContent());

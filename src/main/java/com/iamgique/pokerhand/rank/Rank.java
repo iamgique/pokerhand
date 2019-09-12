@@ -4,16 +4,25 @@ import com.iamgique.pokerhand.model.Card;
 import com.iamgique.pokerhand.model.Suit;
 import com.iamgique.pokerhand.model.Value;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 abstract public class Rank {
 
-    protected List<Card> sortByValue(Card ... cards) {
+    public static Card getHighestCard(int index, Card ... cards) {
+        return sortByValue(cards).get(index);
+    }
+
+    public static Value getHighestCardOnThreeCardSame(Card ... cards) {
+        return Stream.of(cards).collect(Collectors.groupingBy(Card::getValue,
+                Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue()).get().getKey();
+    }
+
+    protected static List<Card> sortByValue(Card ... cards) {
         return Stream.of(cards)
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());

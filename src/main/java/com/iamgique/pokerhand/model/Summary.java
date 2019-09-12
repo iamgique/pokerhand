@@ -31,6 +31,6 @@ public class Summary {
 
     @Override
     public String toString() {
-        return player + " wins. - with " + rank + ": " + card;
+        return player != null ? player + " wins. - with " + rank + ": " + card : "Tie.";
     }
 }

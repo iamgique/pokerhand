@@ -18,16 +18,4 @@ public class HighCardTest {
 
         Assert.assertEquals(CardRank.HIGHCARD.ordinal(), highCard.kindOfCard());
     }
-
-    @Test
-    public void highCard_getHighestCard() {
-        HighCard highCard = new HighCard(
-                new Card(Value._2, Suit.H),
-                new Card(Value._5, Suit.S),
-                new Card(Value._7, Suit.D),
-                new Card(Value.T, Suit.H),
-                new Card(Value._9, Suit.C)
-        );
-        Assert.assertEquals(new Card(Value.T, Suit.H), highCard.getHighestCard(0));
-    }
 }

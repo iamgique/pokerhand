@@ -17,10 +17,6 @@ public class HighCard extends Rank implements Kind {
         return repeatValue(1, cards).size() == 5;
     }
 
-    public Card getHighestCard(int index) {
-        return sortByValue(this.cards).get(index);
-    }
-
     @Override
     public int kindOfCard(){
         return (isHighCard(this.cards)) ? CardRank.HIGHCARD.ordinal() : 0;

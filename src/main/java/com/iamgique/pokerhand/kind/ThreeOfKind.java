@@ -27,13 +27,4 @@ public class ThreeOfKind extends Rank implements Kind {
     public int kindOfCard(){
         return (isThreeOfKind(this.cards)) ? CardRank.THREEOFAKIND.ordinal() : 0;
     }
-
-    public Value getCardThreeOfKind() {
-        return Stream.of(cards).collect(Collectors.groupingBy(Card::getValue,
-                Collectors.counting()))
-                .entrySet().stream()
-                .filter(e -> e.getValue() > 1L)
-                .map(e -> e.getKey())
-                .collect(Collectors.toList()).get(0);
-    }
 }
