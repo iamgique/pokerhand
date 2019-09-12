@@ -15,7 +15,7 @@ abstract public class Rank {
         return sortByValue(cards).get(index);
     }
 
-    public static Value getHighestCardOnThreeCardSame(Card ... cards) {
+    public static Value getMaxDuplicateCard(Card ... cards) {
         return Stream.of(cards).collect(Collectors.groupingBy(Card::getValue,
                 Collectors.counting()))
                 .entrySet().stream()

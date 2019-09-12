@@ -15,7 +15,7 @@ public class VersusTest {
     List<Card> white;
 
     @Test
-    public void versus_whiteWinWhenWhiteHandHasAceCardIsHighest() {
+    public void versusSameKind_whiteWinWhenWhiteHandHasAceCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value._2, Suit.H),
                 new Card(Value._5, Suit.S),
@@ -33,7 +33,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_blackWinWhenBlackHandHasNineCardIsHighest() {
+    public void versusSameKind_blackWinWhenBlackHandHasNineCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value._2, Suit.C),
                 new Card(Value._5, Suit.D),
@@ -51,7 +51,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_TieWhenEveryoneHasHighestCard() {
+    public void versusSameKind_TieWhenEveryoneHasHighestCard() {
         List<Card> black = asList(
                 new Card(Value._2, Suit.C),
                 new Card(Value._5, Suit.D),
@@ -69,7 +69,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_WhiteWin_playerBlackAndWhiteHasSameHighCard_whiteHasNineCardIsHighest() {
+    public void versusSameKind_WhiteWin_playerBlackAndWhiteHasSameHighCard_whiteHasNineCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value._2, Suit.H),
                 new Card(Value._3, Suit.S),
@@ -87,25 +87,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_WhiteWin_blackAndWhiteHasPair_playerWhiteHasJackCardIsHighest() {
-        List<Card> black = asList(
-                new Card(Value._2, Suit.H),
-                new Card(Value._5, Suit.S),
-                new Card(Value.Q, Suit.D),
-                new Card(Value.Q, Suit.C),
-                new Card(Value.T, Suit.H));
-        List<Card> white = asList(
-                new Card(Value._2, Suit.H),
-                new Card(Value._5, Suit.S),
-                new Card(Value.Q, Suit.S),
-                new Card(Value.Q, Suit.H),
-                new Card(Value.J, Suit.H));
-        Versus versus = new Versus(black, white, this.kind);
-        Assert.assertEquals("White wins. - with pair: Jack", versus.versus());
-    }
-
-    @Test
-    public void versus_blackWin_playerBlackAndWhiteHasSameHighCardTwoTimes_BlackHasEightCardIsHighest() {
+    public void versusSameKind_blackWin_playerBlackAndWhiteHasSameHighCardTwoTimes_BlackHasEightCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value._2, Suit.H),
                 new Card(Value.J, Suit.S),
@@ -123,7 +105,43 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_blackWin_blackAndWhiteHasTwoPair_playerBlackHasKingCardIsHighest() {
+    public void versusSameKind_WhiteWin_blackAndWhiteHasPair_playerWhiteHasJackCardIsHighest() {
+        List<Card> black = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._5, Suit.S),
+                new Card(Value.Q, Suit.D),
+                new Card(Value.Q, Suit.C),
+                new Card(Value.T, Suit.H));
+        List<Card> white = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._5, Suit.S),
+                new Card(Value.Q, Suit.S),
+                new Card(Value.Q, Suit.H),
+                new Card(Value.J, Suit.H));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("White wins. - with pair: Jack", versus.versus());
+    }
+
+    @Test
+    public void versusNotSameKind_WhiteWin_WhiteHasPairIsHigherThanBlack() {
+        List<Card> black = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._5, Suit.S),
+                new Card(Value.J, Suit.D),
+                new Card(Value.Q, Suit.C),
+                new Card(Value.T, Suit.H));
+        List<Card> white = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._5, Suit.S),
+                new Card(Value.Q, Suit.S),
+                new Card(Value.Q, Suit.H),
+                new Card(Value.J, Suit.H));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("White wins. - with pair: Jack", versus.versus());
+    }
+
+    @Test
+    public void versusSameKind_blackWin_blackAndWhiteHasTwoPair_playerBlackHasKingCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value.K, Suit.H),
                 new Card(Value.A, Suit.S),
@@ -141,7 +159,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_blackWin_blackAndWhiteHasThreeOfAKind_playerBlackHasKingCardIsHighest() {
+    public void versusSameKind_blackWin_blackAndWhiteHasThreeOfAKind_playerBlackHasKingCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value.K, Suit.H),
                 new Card(Value.K, Suit.S),
@@ -159,7 +177,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_blackWin_blackAndWhiteHasStraight_playerBlackHasAceCardIsHighest() {
+    public void versusSameKind_blackWin_blackAndWhiteHasStraight_playerBlackHasAceCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value.T, Suit.H),
                 new Card(Value.J, Suit.S),
@@ -177,7 +195,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_blackWin_blackAndWhiteHasFlush_playerBlackHasQueenCardIsHighest() {
+    public void versusSameKind_blackWin_blackAndWhiteHasFlush_playerBlackHasQueenCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value.T, Suit.H),
                 new Card(Value._6, Suit.H),
@@ -195,7 +213,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_WhiteWin_blackAndWhiteHasFullHouse_playerWhiteHasJackCardIsHighest() {
+    public void versusSameKind_WhiteWin_blackAndWhiteHasFullHouse_playerWhiteHasJackCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value._2, Suit.D),
                 new Card(Value.T, Suit.H),
@@ -213,7 +231,25 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_WhiteWin_blackAndWhiteHasStraightFlush_playerWhiteHasQueenCardIsHighest() {
+    public void versusSameKind_WhiteWin_blackAndWhiteHasFourOfAKind_playerWhiteHasJackCardIsHighest() {
+        List<Card> black = asList(
+                new Card(Value._2, Suit.D),
+                new Card(Value.T, Suit.H),
+                new Card(Value.T, Suit.C),
+                new Card(Value.T, Suit.D),
+                new Card(Value.T, Suit.S));
+        List<Card> white = asList(
+                new Card(Value._9, Suit.S),
+                new Card(Value.J, Suit.C),
+                new Card(Value.J, Suit.D),
+                new Card(Value.J, Suit.H),
+                new Card(Value.J, Suit.S));
+        Versus versus = new Versus(black, white, this.kind);
+        Assert.assertEquals("White wins. - with four of a kind: Jack", versus.versus());
+    }
+
+    @Test
+    public void versusSameKind_WhiteWin_blackAndWhiteHasStraightFlush_playerWhiteHasQueenCardIsHighest() {
         List<Card> black = asList(
                 new Card(Value._2, Suit.H),
                 new Card(Value._3, Suit.H),
@@ -231,7 +267,7 @@ public class VersusTest {
     }
 
     @Test
-    public void versus_Tie_blackAndWhiteHasStraightFlush_everyoneHasHighestCard() {
+    public void versusSameKind_Tie_blackAndWhiteHasStraightFlush_everyoneHasHighestCard() {
         List<Card> black = asList(
                 new Card(Value._8, Suit.H),
                 new Card(Value._9, Suit.H),

@@ -18,7 +18,7 @@ public class RankTest {
 
     @Test
     public void getThreeOfKindCard_returnCardValueNine() {
-        Assert.assertEquals(Value._9, Rank.getHighestCardOnThreeCardSame(new Card(Value._9, Suit.H),
+        Assert.assertEquals(Value._9, Rank.getMaxDuplicateCard(new Card(Value._9, Suit.H),
                 new Card(Value._9, Suit.S),
                 new Card(Value._9, Suit.D),
                 new Card(Value.K, Suit.H),
@@ -27,7 +27,7 @@ public class RankTest {
 
     @Test
     public void getThreeOfKindCard_returnCardValue() {
-        Assert.assertEquals(Value.T, Rank.getHighestCardOnThreeCardSame(new Card(Value._9, Suit.H),
+        Assert.assertEquals(Value.T, Rank.getMaxDuplicateCard(new Card(Value._9, Suit.H),
                 new Card(Value.T, Suit.S),
                 new Card(Value.T, Suit.D),
                 new Card(Value.T, Suit.H),

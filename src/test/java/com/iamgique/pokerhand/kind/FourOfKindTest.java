@@ -17,4 +17,25 @@ public class FourOfKindTest {
                 new Card(Value.K, Suit.C));
         Assert.assertEquals(CardRank.FOUROFAKIND.ordinal(), fourOfKind.kindOfCard());
     }
+
+    @Test
+    public void fourOfKind_falseWhenCardValueRepeatLessThan4TimeAndHasMoreThanFiveCard() {
+        FourOfKind fourOfKind = new FourOfKind(new Card(Value._2, Suit.H),
+                new Card(Value._2, Suit.S),
+                new Card(Value._6, Suit.D),
+                new Card(Value._3, Suit.C),
+                new Card(Value.K, Suit.C),
+                new Card(Value.Q, Suit.C));
+        Assert.assertEquals(CardRank.NOTMATCH.ordinal(), fourOfKind.kindOfCard());
+    }
+
+    @Test
+    public void fourOfKind_falseWhenCardValueRepeat5Time() {
+        FourOfKind fourOfKind = new FourOfKind(new Card(Value._2, Suit.H),
+                new Card(Value._2, Suit.S),
+                new Card(Value._2, Suit.D),
+                new Card(Value._2, Suit.C),
+                new Card(Value._2, Suit.C));
+        Assert.assertEquals(CardRank.NOTMATCH.ordinal(), fourOfKind.kindOfCard());
+    }
 }

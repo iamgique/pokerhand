@@ -40,25 +40,23 @@ public class Versus {
 
     public int getKindOfCard(Card ... cards) {
         if(CardRank.STRAIGHTFLUSH.ordinal() == new StraightFlush(cards).kindOfCard()) {
-            return new StraightFlush(cards).kindOfCard();
+            return CardRank.STRAIGHTFLUSH.ordinal();
         } else if(CardRank.FOUROFAKIND.ordinal() == new FourOfKind(cards).kindOfCard()){
-            return new FourOfKind(cards).kindOfCard();
+            return CardRank.FOUROFAKIND.ordinal();
         } else if(CardRank.FULLHOUSE.ordinal() == new FullHouse(cards).kindOfCard()){
-            return new FullHouse(cards).kindOfCard();
+            return CardRank.FULLHOUSE.ordinal();
         } else if(CardRank.FLUSH.ordinal() == new Flush(cards).kindOfCard()){
-            return new Flush(cards).kindOfCard();
+            return CardRank.FLUSH.ordinal();
         } else if(CardRank.STRAIGHT.ordinal() == new Straight(cards).kindOfCard()){
-            return new Straight(cards).kindOfCard();
+            return CardRank.STRAIGHT.ordinal();
         } else if (CardRank.THREEOFAKIND.ordinal() == new ThreeOfKind(cards).kindOfCard()) {
-            return new ThreeOfKind(cards).kindOfCard();
+            return CardRank.THREEOFAKIND.ordinal();
         } else if (CardRank.TWOPAIR.ordinal() == new TwoPair(cards).kindOfCard()) {
-            return new TwoPair(cards).kindOfCard();
+            return CardRank.TWOPAIR.ordinal();
         } else if (CardRank.PAIR.ordinal() == new Pair(cards).kindOfCard()) {
-            return new Pair(cards).kindOfCard();
-        } else if(CardRank.HIGHCARD.ordinal() == new HighCard(cards).kindOfCard()){
-            return new HighCard(cards).kindOfCard();
+            return CardRank.PAIR.ordinal();
         } else {
-            return 0;
+            return CardRank.HIGHCARD.ordinal();
         }
     }
 
@@ -74,15 +72,17 @@ public class Versus {
 
     private void sameKindOfCard(){
         if(playerBlack.get(Player.BLACK.getContent()) == CardRank.THREEOFAKIND.ordinal()
-            || playerBlack.get(Player.BLACK.getContent()) == CardRank.FULLHOUSE.ordinal()){
-            compareThreeOfKind();
+            || playerBlack.get(Player.BLACK.getContent()) == CardRank.FULLHOUSE.ordinal()
+            || playerBlack.get(Player.BLACK.getContent()) == CardRank.FOUROFAKIND.ordinal() ){
+            compareMaxDuplicateCard();
         }
 
-        if(playerBlack.get(Player.BLACK.getContent()) > CardRank.DRAW.ordinal() &&
-                playerBlack.get(Player.BLACK.getContent()) < CardRank.THREEOFAKIND.ordinal()
-                || playerBlack.get(Player.BLACK.getContent()) == CardRank.STRAIGHT.ordinal()
-                || playerBlack.get(Player.BLACK.getContent()) == CardRank.FLUSH.ordinal()
-                || playerBlack.get(Player.BLACK.getContent()) == CardRank.STRAIGHTFLUSH.ordinal()
+        if(playerBlack.get(Player.BLACK.getContent()) == CardRank.HIGHCARD.ordinal()
+            || playerBlack.get(Player.BLACK.getContent()) == CardRank.PAIR.ordinal()
+            || playerBlack.get(Player.BLACK.getContent()) == CardRank.TWOPAIR.ordinal()
+            || playerBlack.get(Player.BLACK.getContent()) == CardRank.STRAIGHT.ordinal()
+            || playerBlack.get(Player.BLACK.getContent()) == CardRank.FLUSH.ordinal()
+            || playerBlack.get(Player.BLACK.getContent()) == CardRank.STRAIGHTFLUSH.ordinal()
         ){
             compareHighestCard(0);
         }
@@ -92,9 +92,9 @@ public class Versus {
         System.err.println("NOT DRAW");
     }
 
-    private void compareThreeOfKind() {
-        Value a = Rank.getHighestCardOnThreeCardSame(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4));
-        Value b = Rank.getHighestCardOnThreeCardSame(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4));
+    private void compareMaxDuplicateCard() {
+        Value a = Rank.getMaxDuplicateCard(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4));
+        Value b = Rank.getMaxDuplicateCard(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4));
         getWinner(new Card(a, Suit.H),new Card(b, Suit.H));
     }
 
