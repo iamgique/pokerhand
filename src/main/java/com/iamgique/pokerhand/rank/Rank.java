@@ -1,5 +1,6 @@
 package com.iamgique.pokerhand.rank;
 
+import com.iamgique.pokerhand.kind.*;
 import com.iamgique.pokerhand.model.Card;
 import com.iamgique.pokerhand.model.Suit;
 import com.iamgique.pokerhand.model.Value;

@@ -12,19 +12,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ThreeOfKind extends Rank implements Kind {
-    Card[] cards;
-
-    public ThreeOfKind(Card... cards){
-        this.cards = cards;
-    }
-
-    private boolean isThreeOfKind(Card... cards) {
+public class ThreeOfKind extends Rank {
+    public boolean isThreeOfKind(Card... cards) {
         return repeatValue(3, cards).size() == 1 && repeatValue(1, cards).size() == 2;
-    }
-
-    @Override
-    public int kindOfCard(){
-        return (isThreeOfKind(this.cards)) ? CardRank.THREEOFAKIND.ordinal() : 0;
     }
 }

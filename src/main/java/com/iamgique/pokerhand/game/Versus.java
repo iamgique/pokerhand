@@ -1,23 +1,23 @@
 package com.iamgique.pokerhand.game;
 
-import com.iamgique.pokerhand.kind.*;
 import com.iamgique.pokerhand.model.*;
+import com.iamgique.pokerhand.rank.CompareCardRank;
 import com.iamgique.pokerhand.rank.Rank;
 
 import java.util.*;
 
 public class Versus {
-    Kind kind;
+    CompareCardRank compareCardRank;
     List<Card> black;
     List<Card> white;
     Map<String, Integer> playerBlack = new HashMap<>();
     Map<String, Integer> playerWhite = new HashMap<>();
     Summary summary = new Summary();
 
-    public Versus(List<Card> black, List<Card> white, Kind kind){
-        this.kind = kind;
+    public Versus(List<Card> black, List<Card> white, CompareCardRank compareCardRank){
         this.black = black;
         this.white = white;
+        this.compareCardRank = compareCardRank;
     }
 
     public String versus() {
@@ -38,26 +38,8 @@ public class Versus {
         return summary.toString();
     }
 
-    public int getKindOfCard(Card ... cards) {
-        if(CardRank.STRAIGHTFLUSH.ordinal() == new StraightFlush(cards).kindOfCard()) {
-            return CardRank.STRAIGHTFLUSH.ordinal();
-        } else if(CardRank.FOUROFAKIND.ordinal() == new FourOfKind(cards).kindOfCard()){
-            return CardRank.FOUROFAKIND.ordinal();
-        } else if(CardRank.FULLHOUSE.ordinal() == new FullHouse(cards).kindOfCard()){
-            return CardRank.FULLHOUSE.ordinal();
-        } else if(CardRank.FLUSH.ordinal() == new Flush(cards).kindOfCard()){
-            return CardRank.FLUSH.ordinal();
-        } else if(CardRank.STRAIGHT.ordinal() == new Straight(cards).kindOfCard()){
-            return CardRank.STRAIGHT.ordinal();
-        } else if (CardRank.THREEOFAKIND.ordinal() == new ThreeOfKind(cards).kindOfCard()) {
-            return CardRank.THREEOFAKIND.ordinal();
-        } else if (CardRank.TWOPAIR.ordinal() == new TwoPair(cards).kindOfCard()) {
-            return CardRank.TWOPAIR.ordinal();
-        } else if (CardRank.PAIR.ordinal() == new Pair(cards).kindOfCard()) {
-            return CardRank.PAIR.ordinal();
-        } else {
-            return CardRank.HIGHCARD.ordinal();
-        }
+    private int getKindOfCard(Card ... cards) {
+        return compareCardRank.getKindOfCard(cards);
     }
 
     public CardRank compareKindCardOnHand(int a, int b) {
@@ -88,8 +70,9 @@ public class Versus {
         }
     }
 
-    private void notSameKindOfCard(CardRank resp){
-        System.err.println("NOT DRAW");
+    private void notSameKindOfCard(CardRank kindOfCard){
+        System.err.println(kindOfCard.getContent());
+        compareHighestCard(0);
     }
 
     private void compareMaxDuplicateCard() {
