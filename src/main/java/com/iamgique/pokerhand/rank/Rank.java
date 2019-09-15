@@ -5,24 +5,13 @@ import com.iamgique.pokerhand.model.Card;
 import com.iamgique.pokerhand.model.Suit;
 import com.iamgique.pokerhand.model.Value;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 abstract public class Rank {
-
-    public static Card getHighestCard(int index, Card ... cards) {
-        return sortByValue(cards).get(index);
-    }
-
-    public static Value getMaxDuplicateCard(Card ... cards) {
-        return Stream.of(cards).collect(Collectors.groupingBy(Card::getValue,
-                Collectors.counting()))
-                .entrySet().stream()
-                .max(Map.Entry.comparingByValue()).get().getKey();
-    }
-
     protected static List<Card> sortByValue(Card ... cards) {
         return Stream.of(cards)
                 .sorted(Comparator.reverseOrder())
@@ -58,6 +47,23 @@ abstract public class Rank {
             c = cards.get(i);
         }
         return true;
+    }
+
+    protected Map<Value, Long> groupingDupCard(Card ... cards){
+        return Stream.of(cards).collect(Collectors.groupingBy(Card::getValue,
+                Collectors.counting()))
+                .entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    protected List<Card> getHighestByDupValue(Card ... cards){
+        List<Card> list = new ArrayList<>();
+        groupingDupCard(cards).forEach((k,v)-> {
+            if(1 < v){
+                list.add(new Card (k));
+            }
+        });
+        return sortByValue(list.toArray(new Card[list.size()]));
     }
 
 

@@ -1,6 +1,6 @@
 package com.iamgique.pokerhand.model;
 
-public enum CardRank {
+public enum CategoryCardRank {
     NOTMATCH("not match"),
     DRAW("draw"),
     HIGHCARD("high card"),
@@ -13,11 +13,11 @@ public enum CardRank {
     FOUROFAKIND("four of a kind"),
     STRAIGHTFLUSH("straight flush");
 
-    public static final CardRank values[] = values();
+    public static final CategoryCardRank values[] = values();
 
     private final String content;
 
-    CardRank(String value) {
+    CategoryCardRank(String value) {
         content = value;
     }
 

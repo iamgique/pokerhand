@@ -12,6 +12,11 @@ public class Card implements Comparable<Card> {
         this.suit = suit;
     }
 
+    public Card(Value value) {
+        this.value = value;
+        this.suit = null;
+    }
+
     public Value getValue() {
         return value;
     }
