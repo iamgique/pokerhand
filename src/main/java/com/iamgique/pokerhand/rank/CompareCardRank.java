@@ -11,7 +11,7 @@ public interface CompareCardRank {
     Value getMaxDuplicateCard(Card ... cards);
     Value getPairCardValue(Card ... cards);
     List<Card> getTwoPairCardHighestValue(Card ... cards);
-    //List<Card> getFullHouseValue(Card ... cards);
     List<Card> getRemainingCardOfPair(List<Card> cards);
     List<Card> getHighestRemainingCardOfTwoPair(List<Card> cards);
+    StringBuffer getFullHouseValueMsg(Card ... cards);
 }

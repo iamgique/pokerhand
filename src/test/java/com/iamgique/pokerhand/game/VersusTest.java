@@ -254,7 +254,7 @@ public class VersusTest {
                 new Card(Value.J, Suit.H),
                 new Card(Value.J, Suit.S));
         Versus versus = new Versus(black, white, this.compareCardRank);
-        Assert.assertEquals("White wins. - with full house: Jack", versus.versus());
+        Assert.assertEquals("White wins. - with full house: Jack over 9", versus.versus());
     }
 
     @Test
@@ -419,7 +419,7 @@ public class VersusTest {
                 new Card(Value.Q, Suit.H),
                 new Card(Value.J, Suit.H));
         Versus versus = new Versus(black, white, this.compareCardRank);
-        Assert.assertEquals("Black wins. - with full house: 2", versus.versus());
+        Assert.assertEquals("Black wins. - with full house: 2 over 3", versus.versus());
     }
 
     @Test

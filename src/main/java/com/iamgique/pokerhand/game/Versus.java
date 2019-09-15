@@ -38,8 +38,9 @@ public class Versus {
         } else if (categoryOfPlayerBlack < categoryOfPlayerWhite) {
             getWinner(Player.WHITE, white);
         } else {
-            if(isPair(Player.WHITE.getContent())) compareHighestCardOfPair();
-            if(isTwoPair(Player.WHITE.getContent())) compareHighestCardOfTwoPair();
+            if(isPair(Player.WHITE.getContent())) compareHighestCardOfPairOfTwoPlayer();
+            if(isTwoPair(Player.WHITE.getContent())) compareHighestCardOfTwoPairOfTwoPlayer();
+            if(isFullHouse(Player.WHITE.getContent())) compareHighestCardOfFullHouseOfTwoPlayer();
             if(isMustBeUseMaxDuplicateCard(Player.WHITE.getContent())) compareMaxDuplicateCardOfTwoPlayer();
             if(isMustBeUseHighestCard(Player.WHITE.getContent())) compareHighestCardOfTwoPlayer(0, black, white);
         }
@@ -47,22 +48,19 @@ public class Versus {
 
     private void getWinner(Player playerBlackOrWhite, List<Card> cards) {
         if (isPair(playerBlackOrWhite.getContent()))
-            setWinner(new Card(compareCardRank.getPairCardValue(cards.toArray(new Card[cards.size()]))),
-                    playerBlackOrWhite.getContent());
+            setWinner(new Card(compareCardRank.getPairCardValue(cards.toArray(new Card[cards.size()]))).getValue().getContent(), playerBlackOrWhite.getContent());
 
         if (isTwoPair(playerBlackOrWhite.getContent()))
-            setWinner(compareCardRank.getTwoPairCardHighestValue(cards.toArray(new Card[cards.size()])).get(0),
-                    playerBlackOrWhite.getContent());
+            setWinner(compareCardRank.getTwoPairCardHighestValue(cards.toArray(new Card[cards.size()])).get(0).getValue().getContent(), playerBlackOrWhite.getContent());
+
+        if (isFullHouse(playerBlackOrWhite.getContent()))
+            setWinner(compareCardRank.getFullHouseValueMsg(cards.toArray(new Card[cards.size()])).toString(), playerBlackOrWhite.getContent());
 
         if (isMustBeUseMaxDuplicateCard(playerBlackOrWhite.getContent()))
-            setWinner(new Card(compareCardRank
-                    .getMaxDuplicateCard(cards.toArray(new Card[cards.size()]))),
-                    playerBlackOrWhite.getContent());
+            setWinner(new Card(compareCardRank.getMaxDuplicateCard(cards.toArray(new Card[cards.size()]))).getValue().getContent(), playerBlackOrWhite.getContent());
 
         if (isMustBeUseHighestCard(playerBlackOrWhite.getContent()))
-            setWinner(compareCardRank
-                    .getHighestCard(0, cards.toArray(new Card[cards.size()])),
-                    playerBlackOrWhite.getContent());
+            setWinner(compareCardRank.getHighestCard(0, cards.toArray(new Card[cards.size()])).getValue().getContent(), playerBlackOrWhite.getContent());
     }
 
     private boolean isPair(String playerBlackOrWhite){
@@ -73,9 +71,12 @@ public class Versus {
         return player.get(playerBlackOrWhite) == CategoryCardRank.TWOPAIR.ordinal();
     }
 
+    private boolean isFullHouse(String playerBlackOrWhite){
+        return player.get(playerBlackOrWhite) == CategoryCardRank.FULLHOUSE.ordinal();
+    }
+
     private boolean isMustBeUseMaxDuplicateCard(String playerBlackOrWhite){
         return player.get(playerBlackOrWhite) == CategoryCardRank.THREEOFAKIND.ordinal()
-                || player.get(playerBlackOrWhite) == CategoryCardRank.FULLHOUSE.ordinal()
                 || player.get(playerBlackOrWhite) == CategoryCardRank.FOUROFAKIND.ordinal();
     }
 
@@ -86,7 +87,7 @@ public class Versus {
                 || player.get(playerBlackOrWhite) == CategoryCardRank.STRAIGHTFLUSH.ordinal();
     }
 
-    private void compareHighestCardOfPair() {
+    private void compareHighestCardOfPairOfTwoPlayer() {
         Value pairCardBlack = compareCardRank.getPairCardValue(black.toArray(new Card[black.size()]));
         Value pairCardWhite = compareCardRank.getPairCardValue(white.toArray(new Card[white.size()]));
 
@@ -99,7 +100,7 @@ public class Versus {
         }
     }
 
-    private void compareHighestCardOfTwoPair() {
+    private void compareHighestCardOfTwoPairOfTwoPlayer() {
         List<Card> twoPairCardBlack = compareCardRank.getTwoPairCardHighestValue(black.toArray(new Card[black.size()]));
         List<Card> twoPairCardWhite = compareCardRank.getTwoPairCardHighestValue(white.toArray(new Card[white.size()]));
         boolean isEquals = false;
@@ -116,6 +117,16 @@ public class Versus {
             List<Card> a = compareCardRank.getHighestRemainingCardOfTwoPair(black);
             List<Card> b = compareCardRank.getHighestRemainingCardOfTwoPair(white);
             compareHighestCardOfTwoPlayer(0, a, b);
+        }
+    }
+
+    private void compareHighestCardOfFullHouseOfTwoPlayer() {
+        Value a = compareCardRank.getMaxDuplicateCard(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4));
+        Value b = compareCardRank.getMaxDuplicateCard(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4));
+        if(a.ordinal() > b.ordinal()) {
+            setWinner(compareCardRank.getFullHouseValueMsg(black.toArray(new Card[black.size()])).toString(), Player.BLACK.getContent());
+        } else {
+            setWinner(compareCardRank.getFullHouseValueMsg(white.toArray(new Card[white.size()])).toString(), Player.WHITE.getContent());
         }
     }
 
@@ -139,15 +150,15 @@ public class Versus {
 
     private void compareValueOfCardToSetWinner(Card a, Card b) {
         if (a.getValue().ordinal() > b.getValue().ordinal()) {
-            setWinner(a, Player.BLACK.getContent());
+            setWinner(a.getValue().getContent(), Player.BLACK.getContent());
         } else if (a.getValue().ordinal() < b.getValue().ordinal()) {
-            setWinner(b, Player.WHITE.getContent());
+            setWinner(b.getValue().getContent(), Player.WHITE.getContent());
         }
     }
 
-    private void setWinner(Card card, String playerBlackOrWhite) {
+    private void setWinner(String msg, String playerBlackOrWhite) {
         summary.setPlayer(playerBlackOrWhite);
         summary.setRank(CategoryCardRank.values[player.get(playerBlackOrWhite)].getContent());
-        summary.setCard(card.getValue().getContent());
+        summary.setMsg(msg);
     }
 }

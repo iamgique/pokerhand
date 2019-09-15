@@ -6,9 +6,6 @@ import com.iamgique.pokerhand.model.Value;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FullHouseTest {
 
     @Test
@@ -21,20 +18,17 @@ public class FullHouseTest {
                 new Card(Value.K, Suit.D)));
     }
 
-    /*@Test
+    @Test
     public void fullHouse_returnThreeAndAce_whenGetFullHouseValue() {
         FullHouse fullHouse = new FullHouse();
-        List<Card> expect = new ArrayList<>();
-        expect.add(new Card(Value.A));
-        expect.add(new Card(Value._3));
+        String expect = "3 over Ace";
 
-        List<Card> resp = fullHouse.getFullHouseValue(new Card(Value._3, Suit.H),
+        StringBuffer resp = fullHouse.getFullHouseValueMsg(new Card(Value._3, Suit.H),
                 new Card(Value._3, Suit.S),
                 new Card(Value.A, Suit.D),
                 new Card(Value.A, Suit.C),
                 new Card(Value._3, Suit.D));
 
-        Assert.assertEquals(expect.get(0).getValue(),resp.get(0).getValue());
-        Assert.assertEquals(expect.get(1).getValue(),resp.get(1).getValue());
-    }*/
+        Assert.assertEquals(expect,resp.toString());
+    }
 }

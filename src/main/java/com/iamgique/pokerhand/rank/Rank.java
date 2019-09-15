@@ -16,6 +16,14 @@ abstract public class Rank {
                 .collect(Collectors.toList());
     }
 
+    protected List<Map.Entry<Value, Long>> sortKeyByValueIsGrouping(Card ... cards) {
+        return groupingDupCard(cards)
+                .entrySet()
+                .stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors.toList());
+    }
+
     protected Map<Value, List<Card>> repeatValue(int dup, Card ... cards) {
         return filterByDup(dup, repeatingGroup(cards, Card::getValue));
     }
