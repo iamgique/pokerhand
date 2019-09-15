@@ -11,11 +11,11 @@ public class FullHouse extends Rank {
         return repeatValue(3, cards).size() == 1 && repeatValue(2, cards).size() == 1;
     }
 
-    public List<Card> getFullHouseValue(Card ... cards){
+    /*public List<Card> getFullHouseValue(Card ... cards){
         List<Card> resp = new ArrayList<>();
         repeatingGroup(cards, Card::getValue).forEach((k,v)->{
             resp.add(new Card(k));
         });
-        return resp;
-    }
+        return sortByValue(resp.toArray(new Card[resp.size()]));
+    }*/
 }

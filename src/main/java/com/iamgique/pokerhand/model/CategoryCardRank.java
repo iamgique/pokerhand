@@ -6,11 +6,11 @@ public enum CategoryCardRank {
     HIGHCARD("high card"),
     PAIR("pair"),
     TWOPAIR("two pairs"),
-    THREEOFAKIND("three of a category"),
+    THREEOFAKIND("three of a kind"),
     STRAIGHT("straight"),
     FLUSH("flush"),
     FULLHOUSE("full house"),
-    FOUROFAKIND("four of a category"),
+    FOUROFAKIND("four of a kind"),
     STRAIGHTFLUSH("straight flush");
 
     public static final CategoryCardRank values[] = values();

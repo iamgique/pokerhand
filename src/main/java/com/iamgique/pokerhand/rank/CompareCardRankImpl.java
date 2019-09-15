@@ -81,10 +81,10 @@ public class CompareCardRankImpl extends Rank implements CompareCardRank {
         return pair.getRemainingCardOfPair(cards);
     }
 
-    @Override
+    /*@Override
     public List<Card> getFullHouseValue(Card ... cards) {
         return fullHouse.getHighestByDupValue(cards);
-    }
+    }*/
 
     @Override
     public List<Card> getTwoPairCardHighestValue(Card ... cards) {

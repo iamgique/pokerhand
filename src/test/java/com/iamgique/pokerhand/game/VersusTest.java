@@ -200,7 +200,7 @@ public class VersusTest {
                 new Card(Value.Q, Suit.D),
                 new Card(Value.J, Suit.H));
         Versus versus = new Versus(black, white, this.compareCardRank);
-        Assert.assertEquals("White wins. - with three of a category: Ace", versus.versus());
+        Assert.assertEquals("White wins. - with three of a kind: Ace", versus.versus());
     }
 
     @Test
@@ -272,7 +272,7 @@ public class VersusTest {
                 new Card(Value.J, Suit.H),
                 new Card(Value.J, Suit.S));
         Versus versus = new Versus(black, white, this.compareCardRank);
-        Assert.assertEquals("White wins. - with four of a category: Jack", versus.versus());
+        Assert.assertEquals("White wins. - with four of a kind: Jack", versus.versus());
     }
 
     @Test
@@ -365,7 +365,7 @@ public class VersusTest {
                 new Card(Value.Q, Suit.H),
                 new Card(Value.J, Suit.H));
         Versus versus = new Versus(black, white, this.compareCardRank);
-        Assert.assertEquals("White wins. - with three of a category: Queen", versus.versus());
+        Assert.assertEquals("White wins. - with three of a kind: Queen", versus.versus());
     }
 
     @Test
@@ -419,6 +419,42 @@ public class VersusTest {
                 new Card(Value.Q, Suit.H),
                 new Card(Value.J, Suit.H));
         Versus versus = new Versus(black, white, this.compareCardRank);
-        Assert.assertEquals("Black wins. - with full house: 2 over 3", versus.versus());
+        Assert.assertEquals("Black wins. - with full house: 2", versus.versus());
+    }
+
+    @Test
+    public void versusNotSameCategory_BlackWin_BlackHashFourOfAKindIsHigherThanWhite() {
+        List<Card> black = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._2, Suit.S),
+                new Card(Value._2, Suit.D),
+                new Card(Value._2, Suit.C),
+                new Card(Value._3, Suit.H));
+        List<Card> white = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._5, Suit.D),
+                new Card(Value.Q, Suit.H),
+                new Card(Value.Q, Suit.C),
+                new Card(Value.J, Suit.H));
+        Versus versus = new Versus(black, white, this.compareCardRank);
+        Assert.assertEquals("Black wins. - with four of a kind: 2", versus.versus());
+    }
+
+    @Test
+    public void versusNotSameCategory_BlackWin_BlackHashStraghtFlushIsHigherThanWhite() {
+        List<Card> black = asList(
+                new Card(Value._2, Suit.H),
+                new Card(Value._3, Suit.H),
+                new Card(Value._4, Suit.H),
+                new Card(Value._5, Suit.H),
+                new Card(Value._6, Suit.H));
+        List<Card> white = asList(
+                new Card(Value.A, Suit.S),
+                new Card(Value.A, Suit.C),
+                new Card(Value.A, Suit.H),
+                new Card(Value.J, Suit.D),
+                new Card(Value.J, Suit.C));
+        Versus versus = new Versus(black, white, this.compareCardRank);
+        Assert.assertEquals("Black wins. - with straight flush: 6", versus.versus());
     }
 }
