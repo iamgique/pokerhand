@@ -1,7 +1,6 @@
-package com.iamgique.pokerhand.kind;
+package com.iamgique.pokerhand.category;
 
 import com.iamgique.pokerhand.model.Card;
-import com.iamgique.pokerhand.model.Value;
 import com.iamgique.pokerhand.rank.Rank;
 
 import java.util.List;

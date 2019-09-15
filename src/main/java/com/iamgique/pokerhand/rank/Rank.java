@@ -1,11 +1,9 @@
 package com.iamgique.pokerhand.rank;
 
-import com.iamgique.pokerhand.kind.*;
 import com.iamgique.pokerhand.model.Card;
 import com.iamgique.pokerhand.model.Suit;
 import com.iamgique.pokerhand.model.Value;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -26,7 +24,7 @@ abstract public class Rank {
         return filterByDup(dup, repeatingGroup(cards, Card::getSuit));
     }
 
-    private <T> Map<T, List<Card>> repeatingGroup(Card[] cards, Function<? super Card, ? extends T> x) {
+    protected  <T> Map<T, List<Card>> repeatingGroup(Card[] cards, Function<? super Card, ? extends T> x) {
         return Stream.of(cards).collect(Collectors.groupingBy(x));
     }
 

@@ -20,16 +20,16 @@ public class Versus {
 
     public String versus() {
         player.put(Player.BLACK.getContent(),
-                getKindOfCard(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4)));
+                getCategory(black.get(0), black.get(1), black.get(2), black.get(3), black.get(4)));
         player.put(Player.WHITE.getContent(),
-                getKindOfCard(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4)));
+                getCategory(white.get(0), white.get(1), white.get(2), white.get(3), white.get(4)));
 
         compareCategoryCardOnHand(player.get(Player.BLACK.getContent()), player.get(Player.WHITE.getContent()));
         return summary.toString();
     }
 
-    private int getKindOfCard(Card ... cards) {
-        return compareCardRank.getKindOfCard(cards);
+    private int getCategory(Card ... cards) {
+        return compareCardRank.getCategoryOfCard(cards);
     }
 
     public void compareCategoryCardOnHand(int categoryOfPlayerBlack, int categoryOfPlayerWhite) {

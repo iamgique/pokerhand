@@ -1,6 +1,6 @@
 package com.iamgique.pokerhand.rank;
 
-import com.iamgique.pokerhand.kind.*;
+import com.iamgique.pokerhand.category.*;
 import com.iamgique.pokerhand.model.Card;
 import com.iamgique.pokerhand.model.CategoryCardRank;
 import com.iamgique.pokerhand.model.Suit;
@@ -24,13 +24,13 @@ public class CompareCategoryCardRankImplTest {
     @Test
     public void highest_whenKindOfCardIsHighest(){
         Assert.assertEquals(CategoryCardRank.HIGHCARD.ordinal(),
-                compareCardRank.getKindOfCard(new Card(Value._2, Suit.H), new Card(Value._5, Suit.S),
+                compareCardRank.getCategoryOfCard(new Card(Value._2, Suit.H), new Card(Value._5, Suit.S),
                         new Card(Value._7, Suit.D), new Card(Value._9, Suit.C), new Card(Value.T, Suit.H)));
     }
 
     @Test
     public void pair_whenKindOfCardIsPair(){
-        Assert.assertEquals(CategoryCardRank.PAIR.ordinal(), compareCardRank.getKindOfCard(
+        Assert.assertEquals(CategoryCardRank.PAIR.ordinal(), compareCardRank.getCategoryOfCard(
                 new Card(Value._2, Suit.H),
                 new Card(Value._2, Suit.S),
                 new Card(Value._7, Suit.D),
@@ -40,7 +40,7 @@ public class CompareCategoryCardRankImplTest {
 
     @Test
     public void twoPair_whenKindOfCardIsTwoPair(){
-        Assert.assertEquals(CategoryCardRank.TWOPAIR.ordinal(), compareCardRank.getKindOfCard(
+        Assert.assertEquals(CategoryCardRank.TWOPAIR.ordinal(), compareCardRank.getCategoryOfCard(
                 new Card(Value._2, Suit.H),
                 new Card(Value._2, Suit.S),
                 new Card(Value._7, Suit.D),
@@ -50,7 +50,7 @@ public class CompareCategoryCardRankImplTest {
 
     @Test
     public void threeOfAKind_whenKindOfCardIsThreeOfAKind(){
-        Assert.assertEquals(CategoryCardRank.THREEOFAKIND.ordinal(), compareCardRank.getKindOfCard(
+        Assert.assertEquals(CategoryCardRank.THREEOFAKIND.ordinal(), compareCardRank.getCategoryOfCard(
                 new Card(Value._2, Suit.H),
                 new Card(Value._2, Suit.S),
                 new Card(Value._2, Suit.D),
@@ -60,7 +60,7 @@ public class CompareCategoryCardRankImplTest {
 
     @Test
     public void straight_whenKindOfCardIsStraight(){
-        Assert.assertEquals(CategoryCardRank.STRAIGHT.ordinal(), compareCardRank.getKindOfCard(
+        Assert.assertEquals(CategoryCardRank.STRAIGHT.ordinal(), compareCardRank.getCategoryOfCard(
                 new Card(Value._2, Suit.H),
                 new Card(Value._3, Suit.S),
                 new Card(Value._4, Suit.D),
@@ -70,7 +70,7 @@ public class CompareCategoryCardRankImplTest {
 
     @Test
     public void flush_whenKindOfCardIsFlush(){
-        Assert.assertEquals(CategoryCardRank.FLUSH.ordinal(), compareCardRank.getKindOfCard(
+        Assert.assertEquals(CategoryCardRank.FLUSH.ordinal(), compareCardRank.getCategoryOfCard(
                 new Card(Value._2, Suit.H),
                 new Card(Value._3, Suit.H),
                 new Card(Value._4, Suit.H),
@@ -80,7 +80,7 @@ public class CompareCategoryCardRankImplTest {
 
     @Test
     public void fullHouse_whenKindOfCardIsFullHouse(){
-        Assert.assertEquals(CategoryCardRank.FULLHOUSE.ordinal(), compareCardRank.getKindOfCard(
+        Assert.assertEquals(CategoryCardRank.FULLHOUSE.ordinal(), compareCardRank.getCategoryOfCard(
                 new Card(Value._2, Suit.H),
                 new Card(Value._2, Suit.S),
                 new Card(Value._2, Suit.D),
@@ -90,7 +90,7 @@ public class CompareCategoryCardRankImplTest {
 
     @Test
     public void fourOfAKind_whenKindOfCardIsFourOfAKind(){
-        Assert.assertEquals(CategoryCardRank.FOUROFAKIND.ordinal(), compareCardRank.getKindOfCard(
+        Assert.assertEquals(CategoryCardRank.FOUROFAKIND.ordinal(), compareCardRank.getCategoryOfCard(
                 new Card(Value._4, Suit.H),
                 new Card(Value._4, Suit.D),
                 new Card(Value._4, Suit.C),
@@ -100,7 +100,7 @@ public class CompareCategoryCardRankImplTest {
 
     @Test
     public void straightFlush_whenKindOfCardIsStraightFlush(){
-        Assert.assertEquals(CategoryCardRank.STRAIGHTFLUSH.ordinal(), compareCardRank.getKindOfCard(
+        Assert.assertEquals(CategoryCardRank.STRAIGHTFLUSH.ordinal(), compareCardRank.getCategoryOfCard(
                 new Card(Value._2, Suit.H),
                 new Card(Value._3, Suit.H),
                 new Card(Value._4, Suit.H),

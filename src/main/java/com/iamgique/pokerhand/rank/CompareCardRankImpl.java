@@ -1,6 +1,6 @@
 package com.iamgique.pokerhand.rank;
 
-import com.iamgique.pokerhand.kind.*;
+import com.iamgique.pokerhand.category.*;
 import com.iamgique.pokerhand.model.Card;
 import com.iamgique.pokerhand.model.CategoryCardRank;
 import com.iamgique.pokerhand.model.Value;
@@ -36,7 +36,7 @@ public class CompareCardRankImpl extends Rank implements CompareCardRank {
     }
 
     @Override
-    public int getKindOfCard(Card ... cards) {
+    public int getCategoryOfCard(Card ... cards) {
         if(straightFlush.isStraightFlush(cards)){
             return CategoryCardRank.STRAIGHTFLUSH.ordinal();
         } if(fourOfKind.isFourOfKind(cards)){
@@ -79,6 +79,11 @@ public class CompareCardRankImpl extends Rank implements CompareCardRank {
     @Override
     public List<Card> getRemainingCardOfPair(List<Card> cards) {
         return pair.getRemainingCardOfPair(cards);
+    }
+
+    @Override
+    public List<Card> getFullHouseValue(Card ... cards) {
+        return fullHouse.getHighestByDupValue(cards);
     }
 
     @Override
